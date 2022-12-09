@@ -99,7 +99,7 @@ const Signin = () => {
       <Heading textAlign={"center"} m={"1rem auto"}>
         Sign In
       </Heading>
-      <FormControl w={"25%"} m={"auto"}>
+      <FormControl w={{base:"80%",md:"50%",lg:"30%"}} m={"auto"}>
         <VStack>
           <Input
             onChange={handleChange}

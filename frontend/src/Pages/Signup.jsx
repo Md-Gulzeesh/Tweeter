@@ -106,7 +106,7 @@ const Signup = () => {
   return (
     <Box mt={"7rem"}>
       <Heading textAlign={"center"} m={"1rem auto"}>Sign Up</Heading>
-      <FormControl w={"25%"} m={"auto"}>
+      <FormControl w={{base:"80%",md:"50%",lg:"30%"}} m={"auto"}>
         <VStack>
           <Input name="user_name" value={formData.user_name} onChange={handleChange} type="text" placeholder='Enter Username'/>
           <Input name="avatar_url" value={formData.avatar_url} onChange={handleChange} type="text" placeholder='Enter Avatar URL'/>
