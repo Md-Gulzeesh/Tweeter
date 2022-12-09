@@ -1,0 +1,18 @@
+{
+    "user":[
+        {   "id":1,
+            "user_name":"G",
+            "avatar_url":"https://i.pravatar.cc/150?img=52",
+            "full_name":"Gulzeesh",
+            "email":"gulzeesh@gmail.com",
+            "password":"123"
+        }
+    ],
+    "posts":[
+        {   "id":1,
+            "des":"This is demo",
+            "gif_url":"https://media3.giphy.com/media/RbDKaczqWovIugyJmW/giphy.gif?cid=206b4abbnao86xtsjsfch9dsa3zgfxzie6u61jy1xx4e3hiz&rid=giphy.gif&ct=g",
+            "email":"gulzeesh@gmail.com"
+        }
+    ]
+}
