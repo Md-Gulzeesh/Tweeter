@@ -16,7 +16,7 @@ const ViewTweet = () => {
   return (
     <SimpleGrid mt={"20px"} columns={{base:1,md:3,lg:4}} spacing={5}>
       {posts.map(elem=>(
-        <PostCard key={elem.id} gif={elem.gif_url} user_name={elem.user_name} des={elem.des}/>
+        <PostCard key={elem.id} gif={elem.gif_url} user_name={elem.user_name} id={elem.id} des={elem.des}/>
       ))}
     </SimpleGrid>
   );
