@@ -13,6 +13,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../Redux/action";
 import { useNavigate } from "react-router-dom";
+import bcrypt from "bcryptjs";
 
 const Signin = () => {
   const toast = useToast();
@@ -45,7 +46,7 @@ const Signin = () => {
         position: "top",
       });
     } else {
-      console.log(formData);
+      console.log("Form data",formData);
       newUserLogin(formData);
     }
   };
@@ -56,32 +57,70 @@ const Signin = () => {
         "https://mock-8-coding-vite.onrender.com/user"
       );
       let data = response.data;
-      let authUser = data.findIndex(
-        (elem) =>
-          elem.email === user_data.email &&
-          elem.user_name === user_data.user_name &&
-          elem.password === user_data.password
-      );
-      if (authUser !== -1) {
-        let userData = data[authUser];
-        dispatch(userLogin(userData));
-        toast({
-          title: "login success",
-          status: "success",
-          duration: 2000,
-          isClosable: true,
-          position: "top",
-        });
-        navigate("/user")
-      } else {
-        toast({
-          title: "Wrong user credentials",
-          status: "error",
-          duration: 2000,
-          isClosable: true,
-          position: "top",
-        });
-      }
+      let findUser = data.filter(elem=>elem.user_name === user_data.user_name && elem.email === user_data.email)
+        if(findUser.length !== 0){
+          bcrypt.compare(
+            user_data.password,
+            findUser[0].password,
+            (err, res) => {
+              if (res) {
+                user_data.password = "";
+                dispatch(userLogin(user_data));
+                toast({
+                  title: "login success",
+                  status: "success",
+                  duration: 2000,
+                  isClosable: true,
+                  position: "top",
+                });
+                navigate("/user");
+              } else {
+                toast({
+                  title: "Wrong user credentials",
+                  status: "error",
+                  duration: 2000,
+                  isClosable: true,
+                  position: "top",
+                });
+              }
+            }
+          );
+        }else{
+          toast({
+                  title: "Wrong user credentials",
+                  status: "error",
+                  duration: 2000,
+                  isClosable: true,
+                  position: "top",
+                });
+        }
+      // let authUser = data.findIndex(
+      //   (elem) =>
+      //     elem.email === user_data.email &&
+      //     elem.user_name === user_data.user_name &&
+      //     elem.password === user_data.password
+      // );
+      // if (authUser !== -1) {
+      //   let userData = data[authUser];
+      //   userData.password = '';
+      //   dispatch(userLogin(userData));
+      //   toast({
+      //     title: "login success",
+      //     status: "success",
+      //     duration: 2000,
+      //     isClosable: true,
+      //     position: "top",
+      //   });
+      //   navigate("/user")
+      // } else {
+      //   toast({
+      //     title: "Wrong user credentials",
+      //     status: "error",
+      //     duration: 2000,
+      //     isClosable: true,
+      //     position: "top",
+      //   });
+      // }
     } catch (error) {
       toast({
         title: "Something went wrong",

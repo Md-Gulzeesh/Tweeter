@@ -33,9 +33,7 @@ const Tweet = () => {
   const toast = useToast();
   const dispatch = useDispatch();
   const handleTweetChange = (e) => {
-    if (e.target.value !== "") {
       setTweet(e.target.value);
-    }
   };
   const handleSearchGif = (e) => {
     if (e.target.value !== "") {
@@ -64,23 +62,25 @@ const Tweet = () => {
   };
   const handlePost = async () => {
     try {
-      await axios.post("https://mock-8-coding-vite.onrender.com/posts", {
-        user_name: currentUser.user_name,
-        des: tweet,
-        gif_url: selectedgif,
+      if(tweet !== ""){
+        await axios.post("https://mock-8-coding-vite.onrender.com/posts", {
+          user_name: currentUser.user_name,
+          des: tweet,
+          gif_url: selectedgif,
+        });
+        toast({
+        title: "Tweet posted!",
+        status: "success",
+        duration: 1500,
+        isClosable: true,
+        position: "top",
       });
-      toast({
-      title: "Tweet posted!",
-      status: "success",
-      duration: 1500,
-      isClosable: true,
-      position: "top",
-    });
-    setSearchGif("");
-    setTweet("");
-    setSelectedGif("");
-    setMapGifData([]);
-    dispatch(getPosts());
+      setSearchGif("");
+      setTweet("");
+      setSelectedGif("");
+      setMapGifData([]);
+      dispatch(getPosts());
+      }
     } catch (error) {
         toast({
       title: "Something went wrong",

@@ -11,7 +11,7 @@ export default function reducer(state, { type, payload }) {
     case USER_SIGNUP:
       return {...state,currentUser:payload}
     case USER_LOGOUT:
-      return { ...state, isAuth: false };
+      return { ...state,posts:[], currentUser: {},isAuth: false };
     case DELETE_USER:
       return {...state,currentUser:{},isAuth:false}
     case EDIT_USER:

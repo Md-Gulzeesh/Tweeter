@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { userSignup } from '../Redux/action'
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import bcrypt, { hashSync } from "bcryptjs";
 
 const Signup = () => {
     const toast = useToast()
@@ -66,17 +67,19 @@ const Signup = () => {
         });
       } else {
         try {
+          user_data.password = bcrypt.hashSync(user_data.password,10);
           let res = await axios.post(
             "https://mock-8-coding-vite.onrender.com/user",
             user_data
           );
           toast({
-            title: "Login successfully",
+            title: "SignUp successfully",
             status: "success",
             duration: 2000,
             isClosable: true,
             position: "top",
           });
+          res.data.password = "";
           dispatch(userSignup(res.data));
           navigate("/signin")
         } catch (error) {
