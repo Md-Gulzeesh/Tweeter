@@ -35,16 +35,16 @@ const Tweet = () => {
     setTweet(e.target.value);
   };
   const handleSearchGif = (e) => {
-    if (e.target.value !== "") {
-      setSearchGif(e.target.value);
-    }
+    setSearchGif(e.target.value);
   };
   const handleSearch = async () => {
     try {
-      let response = await axios.get(
-        `https://api.giphy.com/v1/gifs/search?api_key=s9ROV9EuwdfMZaLJzVRMq8bWl7b6z4WT&q=${searchgif}&limit=25&offset=0&rating=g&lang=en`
-      );
-      setMapGifData(response.data.data);
+      if(searchgif !== ""){
+        let response = await axios.get(
+          `https://api.giphy.com/v1/gifs/search?api_key=s9ROV9EuwdfMZaLJzVRMq8bWl7b6z4WT&q=${searchgif}&limit=25&offset=0&rating=g&lang=en`
+        );
+        setMapGifData(response.data.data);
+      }
     } catch (error) {
       console.log({ error });
     }
