@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { userSignup } from '../Redux/action'
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import bcrypt, { hashSync } from "bcryptjs";
+import bcrypt from "bcryptjs";
 
 const Signup = () => {
     const toast = useToast()

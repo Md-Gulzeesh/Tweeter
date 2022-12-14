@@ -1,9 +1,9 @@
-import { DELETE_USER, EDIT_USER, GET_POSTS, GET_USER, USER_LOGIN, USER_LOGOUT, USER_SIGNUP } from "./actionType";
+import { DELETE_USER, EDIT_USER, GET_LOCATION, GET_POSTS, GET_USER, USER_LOGIN, USER_LOGOUT, USER_SIGNUP } from "./actionType";
 
 export default function reducer(state, { type, payload }) {
   switch (type) {
     case GET_USER:
-      return { ...state, users: payload };
+      return { ...state, currentUser: payload };
     case GET_POSTS:
       return { ...state, posts: payload };
     case USER_LOGIN:
@@ -16,6 +16,8 @@ export default function reducer(state, { type, payload }) {
       return {...state,currentUser:{},isAuth:false}
     case EDIT_USER:
       return {...state,currentUser:payload}
+    case GET_LOCATION:
+      return {...state,currentLocation:payload};
     default:
       return state;
   }

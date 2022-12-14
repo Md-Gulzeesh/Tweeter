@@ -1,18 +1,22 @@
 {
-    "user":[
-        {   "id":1,
-            "user_name":"G",
-            "avatar_url":"https://i.pravatar.cc/150?img=52",
-            "full_name":"Gulzeesh",
-            "email":"gulzeesh@gmail.com",
-            "password":"$2a$10$2VgLvyhqu.qpXtENFowAsOTEbS7Lm2LBjaIP5bUHo8npcj05rR1Mm"
+    "user": [
+        {
+            "id": 1,
+            "user_name": "G",
+            "avatar_url": "https://i.pravatar.cc/150?img=52",
+            "full_name": "Gulzeesh",
+            "email": "gulzeesh@gmail.com",
+            "password": "$2a$10$2VgLvyhqu.qpXtENFowAsOTEbS7Lm2LBjaIP5bUHo8npcj05rR1Mm"
         }
     ],
-    "posts":[
-        {   "id":1,
-            "des":"This is demo",
-            "gif_url":"https://media3.giphy.com/media/RbDKaczqWovIugyJmW/giphy.gif?cid=206b4abbnao86xtsjsfch9dsa3zgfxzie6u61jy1xx4e3hiz&rid=giphy.gif&ct=g",
-            "user_name":"G"
+    "posts": [
+        {
+            "id": 1,
+            "des": "This is demo",
+            "gif_url": "https://media3.giphy.com/media/RbDKaczqWovIugyJmW/giphy.gif?cid=206b4abbnao86xtsjsfch9dsa3zgfxzie6u61jy1xx4e3hiz&rid=giphy.gif&ct=g",
+            "user_name": "G",
+            "location": "Delhi",
+            "timeStamp": "12/14/2022, 3:42:26 PM"
         }
     ]
 }

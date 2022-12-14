@@ -1,5 +1,5 @@
 import axios from "axios"
-import { DELETE_USER, EDIT_USER, GET_POSTS, GET_USER, USER_LOGIN, USER_LOGOUT, USER_SIGNUP } from "./actionType"
+import { DELETE_USER, EDIT_USER, GET_LOCATION, GET_POSTS, GET_USER, USER_LOGIN, USER_LOGOUT, USER_SIGNUP } from "./actionType"
 
 export const getPosts = ()=> async (dispatch)=>{
     try {
@@ -29,4 +29,7 @@ export const deleteUser = (payload)=>{
 }
 export const editUser = (payload)=>{
     return {type:EDIT_USER,payload:payload}
+}
+export const getCityLocation = (payload)=>{
+    return {type:GET_LOCATION,payload:payload}
 }

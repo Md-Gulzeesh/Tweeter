@@ -5,6 +5,7 @@ import reducer from "./reducer";
 const initState = {
   posts: [],
   currentUser:{},
+  currentLocation:"",
   isAuth:false,
 };
 

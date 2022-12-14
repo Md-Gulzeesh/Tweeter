@@ -9,17 +9,15 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
   SimpleGrid,
-  Text,
   Textarea,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../Redux/action";
 
@@ -27,13 +25,14 @@ const Tweet = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [tweet, setTweet] = useState("");
   const currentUser = useSelector((store) => store.currentUser);
+  const currentLocation = useSelector((store) => store.currentLocation);
   const [selectedgif, setSelectedGif] = useState("");
   const [searchgif, setSearchGif] = useState("");
   const [mapGifData, setMapGifData] = useState([]);
   const toast = useToast();
   const dispatch = useDispatch();
   const handleTweetChange = (e) => {
-      setTweet(e.target.value);
+    setTweet(e.target.value);
   };
   const handleSearchGif = (e) => {
     if (e.target.value !== "") {
@@ -62,34 +61,37 @@ const Tweet = () => {
   };
   const handlePost = async () => {
     try {
-      if(tweet !== ""){
+      if (tweet !== "") {
+        let dateAndTime = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
         await axios.post("https://mock-8-coding-vite.onrender.com/posts", {
           user_name: currentUser.user_name,
           des: tweet,
           gif_url: selectedgif,
+          location: currentLocation,
+          timeStamp:dateAndTime
         });
         toast({
-        title: "Tweet posted!",
-        status: "success",
-        duration: 1500,
+          title: "Tweet posted!",
+          status: "success",
+          duration: 1500,
+          isClosable: true,
+          position: "top",
+        });
+        setSearchGif("");
+        setTweet("");
+        setSelectedGif("");
+        setMapGifData([]);
+        dispatch(getPosts());
+      }
+    } catch (error) {
+      toast({
+        title: "Something went wrong",
+        description: "See console for more information",
+        status: "error",
+        duration: 3000,
         isClosable: true,
         position: "top",
       });
-      setSearchGif("");
-      setTweet("");
-      setSelectedGif("");
-      setMapGifData([]);
-      dispatch(getPosts());
-      }
-    } catch (error) {
-        toast({
-      title: "Something went wrong",
-      description:"See console for more information",
-      status: "error",
-      duration: 3000,
-      isClosable: true,
-      position: "top",
-    });
       console.log(error);
     }
   };

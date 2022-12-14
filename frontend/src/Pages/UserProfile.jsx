@@ -27,6 +27,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { getUser } from "../Redux/action";
+import bcrypt from "bcryptjs";
 
 const UserProfile = () => {
   const currentUser = useSelector((store) => store.currentUser);
@@ -73,21 +75,56 @@ const UserProfile = () => {
         updatedProfile.new_avatar_url !== ""
       ) {
         if (updatedProfile.new_password === "") {
-          await axios.patch(`https://mock-8-coding-vite.onrender.com/user/${id}`, {
-            avatar_url: updatedProfile.new_avatar_url,
-            full_name: updatedProfile.full_name,
-            email: updatedProfile.new_email,
+         let response =  await axios.patch(
+            `https://mock-8-coding-vite.onrender.com/user/${id}`,
+            {
+              avatar_url: updatedProfile.new_avatar_url,
+              full_name: updatedProfile.full_name,
+              email: updatedProfile.new_email,
+            }
+          );
+          toast({
+            title: "Profile edited!",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+            position: "top",
           });
+          response.data.password = '';
+          dispatch(getUser(response.data))
         } else {
-          await axios.patch(`https://mock-8-coding-vite.onrender.com/user/${id}`, {
-            avatar_url: updatedProfile.new_avatar_url,
-            full_name: updatedProfile.full_name,
-            email: updatedProfile.new_email,
-            password: updatedProfile.new_password,
-          });
+          let hash = bcrypt.hashSync(updatedProfile.new_password,10);
+          let response = await axios.patch(
+            `https://mock-8-coding-vite.onrender.com/user/${id}`,
+            {
+              avatar_url: updatedProfile.new_avatar_url,
+              full_name: updatedProfile.full_name,
+              email: updatedProfile.new_email,
+              password: hash,
+            }
+            );
+            toast({
+              title: "Profile edited!",
+              status: "success",
+              duration: 2000,
+              isClosable: true,
+              position: "top",
+            });
+            response.data.password = '';
+            dispatch(getUser(response.data))
         }
       }
-    } catch (error) {}
+    } catch (error) {
+      toast({
+        title: "Something went wrong!",
+        description: "please see console for more informations",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
+      console.log(error);
+    }
   };
   return (
     <Flex justify={"center"} m="5rem auto 0 auto">
@@ -99,10 +136,12 @@ const UserProfile = () => {
             alt={currentUser.user_name}
             borderRadius="50%"
           />
-          <Stack mt="6" spacing="3">
+          <Stack mt="6" spacing="3" textAlign={"center"}>
             <Heading size="md">@{currentUser.user_name}</Heading>
-            <Heading as={"h1"}>{currentUser.full_name}</Heading>
-            <Text>{currentUser.email}</Text>
+            <Text as={"h1"}>{currentUser.full_name}</Text>
+            <Text as={"h2"} fontWeight={"bold"}>
+              {currentUser.email}
+            </Text>
             <Flex gap={"10px"}>
               <Button>{Math.floor(Math.random() * 100)} Followers</Button>
               <Button>{Math.floor(Math.random() * 100)} Following</Button>
@@ -160,7 +199,11 @@ const UserProfile = () => {
                   </FormControl>
                 </ModalBody>
                 <ModalFooter>
-                  <Button onClick={handleEditProfile} colorScheme="teal" mr={3}>
+                  <Button
+                    onClick={() => handleEditProfile(currentUser.id)}
+                    colorScheme="teal"
+                    mr={3}
+                  >
                     Save
                   </Button>
                   <Button onClick={onClose}>Cancel</Button>

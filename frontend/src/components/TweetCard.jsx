@@ -1,11 +1,16 @@
 import {
+  Avatar,
+  Box,
   Button,
   Card,
   CardBody,
+  CardFooter,
+  CardHeader,
   Flex,
   FormControl,
   FormLabel,
   Heading,
+  IconButton,
   Image,
   Input,
   Modal,
@@ -26,7 +31,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../Redux/action";
 
-const PostCard = ({ gif, user_name, des, id }) => {
+const TweetCard = ({ gif, user_name, des, id, location, timeStamp }) => {
   const currentUser = useSelector((store) => store.currentUser);
   const toast = useToast();
   const dispatch = useDispatch();
@@ -125,62 +130,90 @@ const PostCard = ({ gif, user_name, des, id }) => {
     }
   };
   return (
-    <Card maxW="sm">
-      <CardBody>
-        <Image src={gif} alt={user_name} borderRadius="lg" />
-        <Stack mt="6" spacing="3">
-          <Heading size="sm">Posted By: {user_name}</Heading>
-          <Text>{des}</Text>
-        </Stack>
-      </CardBody>
-      {user_name === currentUser.user_name ? (
-        <Flex gap={10} p={"10px"}>
-          <Button onClick={onOpen} colorScheme="teal">
-            Edit
-          </Button>
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Edit your tweet</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody pb={6}>
-                <FormControl>
-                  <FormLabel>Tweet</FormLabel>
-                  <Textarea
-                    onChange={handletweetChange}
-                    placeholder="Enter modified tweet"
-                    defaultValue={des}
-                  />
-                  <FormLabel>Gif URL</FormLabel>
-                  <Input
-                    onChange={handleGifChange}
-                    type={"url"}
-                    placeholder="Enter gif url"
-                    defaultValue={gif}
-                  />
-                </FormControl>
-              </ModalBody>
-              <ModalFooter>
-                <Button
-                  onClick={() => handleEdit(id)}
-                  colorScheme="teal"
-                  mr={3}
-                >
-                  Save
-                </Button>
-                <Button onClick={onClose}>Cancel</Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
-          <Button onClick={() => handleDelete(id)} colorScheme="red">
-            Delete
-          </Button>
+    <Card width={"100%"}>
+      <CardHeader>
+        <Flex spacing="4">
+          <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
+            <Avatar name={user_name} src={currentUser.avatar_url} />
+            <Box>
+              <Heading size="sm">{currentUser.full_name}</Heading>
+              <Text>@{user_name}</Text>
+            </Box>
+          </Flex>
         </Flex>
-      ) : (
-        ""
-      )}
+      </CardHeader>
+      <CardBody>
+        <Text fontSize={{ base: "sm", md: "md", lg: "md", xl: "lg" }}>
+          {des}
+        </Text>
+      </CardBody>
+      <Image src={gif} alt={user_name} />
+      <Flex justify={"flex-end"} mt={"10px"} p={"0 5px"}>
+        <Text textAlign={"right"} fontSize={{ base: "xs", md: "xs", lg: "sm" }}>
+          {location},
+        </Text>
+        <Text textAlign={"right"} fontSize={{ base: "xs", md: "xs", lg: "sm" }}>
+          {timeStamp}
+        </Text>
+      </Flex>
+      <CardFooter justify="space-between" flexWrap="wrap">
+        {user_name === currentUser.user_name ? (
+          <>
+            <Button
+              onClick={onOpen}
+              size={{ base: "sm", md: "md", lg: "lg" }}
+              colorScheme="teal"
+            >
+              Edit
+            </Button>
+            <Modal isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Edit your tweet</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody pb={6}>
+                  <FormControl>
+                    <FormLabel>Tweet</FormLabel>
+                    <Textarea
+                      onChange={handletweetChange}
+                      placeholder="Enter modified tweet"
+                      defaultValue={des}
+                    />
+                    <FormLabel>Gif URL</FormLabel>
+                    <Input
+                      onChange={handleGifChange}
+                      type={"url"}
+                      placeholder="Enter gif url"
+                      defaultValue={gif}
+                    />
+                  </FormControl>
+                </ModalBody>
+                <ModalFooter>
+                  <Button
+                    onClick={() => handleEdit(id)}
+                    colorScheme="teal"
+                    mr={3}
+                  >
+                    Save
+                  </Button>
+                  <Button onClick={onClose}>Cancel</Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
+            <Button
+              onClick={() => handleDelete(id)}
+              size={{ base: "sm", md: "md", lg: "lg" }}
+              colorScheme="red"
+            >
+              Delete
+            </Button>
+          </>
+        ) : (
+          ""
+        )}
+      </CardFooter>
     </Card>
   );
 };
 
-export default PostCard;
+export default TweetCard;
