@@ -100,7 +100,7 @@ const Tweet = () => {
       <Textarea
         borderRadius={"5px"}
         value={tweet}
-        placeholder="Write your beautiful post..."
+        placeholder="Write your beautiful tweet..."
         onChange={handleTweetChange}
         size="sm"
       />
