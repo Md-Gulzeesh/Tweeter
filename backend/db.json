@@ -12,8 +12,8 @@
     "posts": [
         {
             "id": 1,
-            "des": "This is demo",
-            "gif_url": "https://media3.giphy.com/media/RbDKaczqWovIugyJmW/giphy.gif?cid=206b4abbnao86xtsjsfch9dsa3zgfxzie6u61jy1xx4e3hiz&rid=giphy.gif&ct=g",
+            "des": "Tweet something!",
+            "gif_url": "https://media4.giphy.com/media/2wh2h8j8oECdIDhSgQ/giphy.gif?cid=206b4abbkb1v506e6mzq6sx6zynpehoq4vw7nly61jwh6d1d&rid=giphy.gif&ct=g",
             "user_name": "G",
             "location": "Delhi",
             "timeStamp": "12/14/2022, 3:42:26 PM"
