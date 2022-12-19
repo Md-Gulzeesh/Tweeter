@@ -4,9 +4,9 @@ import reducer from "./reducer";
 
 const initState = {
   posts: [],
-  currentUser:{},
-  currentLocation:"",
-  isAuth:false,
+  currentUser: {},
+  currentLocation: "",
+  isAuth: false,
 };
 
 export const store = legacy_createStore(

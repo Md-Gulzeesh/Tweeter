@@ -1,38 +1,40 @@
-import { useEffect } from 'react'
-import AllRoutes from './Routes/AllRoutes'
-import Navbar from './components/Navbar'
-import { useDispatch } from 'react-redux';
-import axios  from 'axios';
-import { getCityLocation } from './Redux/action';
+import { useEffect } from "react";
+import AllRoutes from "./Routes/AllRoutes";
+import Navbar from "./components/Navbar";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { getCityLocation } from "./Redux/action";
 
 function App() {
   const dispatch = useDispatch();
   const getIp = async () => {
     try {
       let response = await axios.get("https://api.ipify.org/?format=json");
-        getLocation(response.data.ip);
+      getLocation(response.data.ip);
     } catch (error) {
       console.log(error);
     }
-  }; 
-  const getLocation = async (ip)=>{
+  };
+  const getLocation = async (ip) => {
     try {
-        let response = await axios.get(`https://ipinfo.io/${ip}?token=${import.meta.env.VITE_IP_TOKEN}`);
-        dispatch(getCityLocation(response.data.city));
+      let response = await axios.get(
+        `https://ipinfo.io/${ip}?token=${import.meta.env.VITE_IP_TOKEN}`
+      );
+      dispatch(getCityLocation(response.data.city));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
   useEffect(() => {
     getIp();
-  }, [])
-  
+  }, []);
+
   return (
-   <>
-   <Navbar/>
-   <AllRoutes/>
-   </>
-  )
+    <>
+      <Navbar />
+      <AllRoutes />
+    </>
+  );
 }
 
-export default App
+export default App;

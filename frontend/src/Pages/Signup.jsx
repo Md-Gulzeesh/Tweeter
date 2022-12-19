@@ -81,7 +81,7 @@ const Signup = () => {
           });
           res.data.password = "";
           dispatch(userSignup(res.data));
-          navigate("/signin")
+          navigate("/")
         } catch (error) {
           toast({
             title: "Something went wrong",

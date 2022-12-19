@@ -10,9 +10,7 @@ import {
   FormControl,
   FormLabel,
   Heading,
-  IconButton,
   Image,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -20,7 +18,6 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Stack,
   Text,
   Textarea,
   useDisclosure,
@@ -30,6 +27,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../Redux/action";
+import SearchGif from "./SearchGif";
 
 const TweetCard = ({ gif, user_name, des, id, location, timeStamp }) => {
   const currentUser = useSelector((store) => store.currentUser);
@@ -37,7 +35,9 @@ const TweetCard = ({ gif, user_name, des, id, location, timeStamp }) => {
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [newtweet, setNewTweet] = useState("");
-  const [newgif, setNewGif] = useState("");
+  const [selectedgif, setSelectedGif] = useState("");
+  const [searchgif, setSearchGif] = useState("");
+  const [mapGifData, setMapGifData] = useState([]);
   const handleDelete = async (id) => {
     try {
       await axios.delete(`https://mock-8-coding-vite.onrender.com/posts/${id}`);
@@ -66,17 +66,12 @@ const TweetCard = ({ gif, user_name, des, id, location, timeStamp }) => {
       setNewTweet(e.target.value);
     }
   };
-  const handleGifChange = (e) => {
-    if (e.target.value !== "") {
-      setNewGif(e.target.value);
-    }
-  };
   const handleEdit = async (id) => {
     try {
-      if (newgif !== "" && newtweet !== "") {
+      if (selectedgif !== "" && newtweet !== "") {
         await axios.patch(
           `https://mock-8-coding-vite.onrender.com/posts/${id}`,
-          { gif_url: newgif, des: newtweet }
+          { gif_url: selectedgif, des: newtweet }
         );
         toast({
           title: "Tweet edited!",
@@ -86,11 +81,11 @@ const TweetCard = ({ gif, user_name, des, id, location, timeStamp }) => {
           position: "top",
         });
         dispatch(getPosts());
-      } else if (newgif !== "") {
+      } else if (selectedgif !== "") {
         await axios.patch(
           `https://mock-8-coding-vite.onrender.com/posts/${id}`,
           {
-            gif_url: newgif,
+            gif_url: selectedgif,
           }
         );
         toast({
@@ -179,12 +174,13 @@ const TweetCard = ({ gif, user_name, des, id, location, timeStamp }) => {
                       placeholder="Enter modified tweet"
                       defaultValue={des}
                     />
-                    <FormLabel>Gif URL</FormLabel>
-                    <Input
-                      onChange={handleGifChange}
-                      type={"url"}
-                      placeholder="Enter gif url"
-                      defaultValue={gif}
+                    <SearchGif
+                      selectedgif={selectedgif}
+                      searchgif={searchgif}
+                      mapGifData={mapGifData}
+                      setSelectedGif={setSelectedGif}
+                      setSearchGif={setSearchGif}
+                      setMapGifData={setMapGifData}
                     />
                   </FormControl>
                 </ModalBody>

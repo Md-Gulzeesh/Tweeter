@@ -69,7 +69,7 @@ const Signin = () => {
             user_data.id = findUser[0].id;
             dispatch(userLogin(user_data));
             toast({
-              title: "login success",
+              title: "SignIn success",
               status: "success",
               duration: 2000,
               isClosable: true,

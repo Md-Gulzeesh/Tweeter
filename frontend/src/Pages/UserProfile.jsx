@@ -27,7 +27,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { getUser } from "../Redux/action";
+import { deleteUser, getUser } from "../Redux/action";
 import bcrypt from "bcryptjs";
 
 const UserProfile = () => {
@@ -75,7 +75,7 @@ const UserProfile = () => {
         updatedProfile.new_avatar_url !== ""
       ) {
         if (updatedProfile.new_password === "") {
-         let response =  await axios.patch(
+          let response = await axios.patch(
             `https://mock-8-coding-vite.onrender.com/user/${id}`,
             {
               avatar_url: updatedProfile.new_avatar_url,
@@ -90,10 +90,10 @@ const UserProfile = () => {
             isClosable: true,
             position: "top",
           });
-          response.data.password = '';
-          dispatch(getUser(response.data))
+          response.data.password = "";
+          dispatch(getUser(response.data));
         } else {
-          let hash = bcrypt.hashSync(updatedProfile.new_password,10);
+          let hash = bcrypt.hashSync(updatedProfile.new_password, 10);
           let response = await axios.patch(
             `https://mock-8-coding-vite.onrender.com/user/${id}`,
             {
@@ -102,16 +102,16 @@ const UserProfile = () => {
               email: updatedProfile.new_email,
               password: hash,
             }
-            );
-            toast({
-              title: "Profile edited!",
-              status: "success",
-              duration: 2000,
-              isClosable: true,
-              position: "top",
-            });
-            response.data.password = '';
-            dispatch(getUser(response.data))
+          );
+          toast({
+            title: "Profile edited!",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+            position: "top",
+          });
+          response.data.password = "";
+          dispatch(getUser(response.data));
         }
       }
     } catch (error) {
