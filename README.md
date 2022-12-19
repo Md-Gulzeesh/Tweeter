@@ -1,2 +1,2 @@
 # Tweeter
-### Live site:- (https://tweeter-app-adv.netlify.app/)
+### Live site:- https://tweeter-app-adv.netlify.app/
