@@ -11,7 +11,6 @@
    - Redux
    - Redux-thunk
    - React-router-dom
-   - JavaScript
    - Chakra-Ui
    - ViteJs
    - Axios
