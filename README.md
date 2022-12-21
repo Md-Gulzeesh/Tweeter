@@ -15,6 +15,7 @@
    - Chakra-Ui
    - ViteJs
    - Axios
+   - JSON-server
 
 ## Pages
    - SignIn
