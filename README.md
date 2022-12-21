@@ -19,8 +19,8 @@
 ## Pages
    - SignIn
    - SignUp
-   - User Profile *Private Route*
-   - Timeline *Private Route*
+   - User Profile (*Private Route*)
+   - Timeline (*Private Route*)
    
 ## Glimpse of app
     - SignIn
