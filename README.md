@@ -23,12 +23,12 @@
    - Timeline (*Private Route*)
    
 ## Glimpse of app
-   - SignIn
+   - *SignIn*
       ![SignIn_page](https://github.com/Md-Gulzeesh/Tweeter/blob/master/Screenshots/SignIn_Page.png)
-   - SignUp
+   - *SignUp*
       ![SignUp_page](https://github.com/Md-Gulzeesh/Tweeter/blob/master/Screenshots/SignUp_page.png)
-   - User Profile
+   - *User Profile*
       ![user_profile](https://github.com/Md-Gulzeesh/Tweeter/blob/master/Screenshots/User_profile_page.png)
-   - Timeline
+   - *Timeline*
       ![timeline_page](https://github.com/Md-Gulzeesh/Tweeter/blob/master/Screenshots/Timeline_page.png)
 
