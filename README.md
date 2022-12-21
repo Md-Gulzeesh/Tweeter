@@ -16,6 +16,7 @@
    - ViteJs
    - Axios
    - JSON-server
+   - Bcrypt Js
 
 ## Pages
    - SignIn
