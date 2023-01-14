@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import { userLogin } from "../Redux/action";
 import { useNavigate } from "react-router-dom";
 import bcrypt from "bcryptjs";
+import { API } from "../api/api";
 const Signin = () => {
   const toast = useToast();
   const dispatch = useDispatch();
@@ -51,9 +52,7 @@ const Signin = () => {
 
   const newUserLogin = async (user_data) => {
     try {
-      let response = await axios.get(
-        "https://mock-8-coding-vite.onrender.com/user"
-      );
+      let response = await axios.get(`${API}/user`);
       let data = response.data;
       let findUser = data.filter(
         (elem) =>

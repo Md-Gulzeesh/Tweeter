@@ -12,9 +12,7 @@ const initState = {
 export const store = legacy_createStore(
   reducer,
   initState,
-  compose(
-    applyMiddleware(thunk)
-  )
+  compose(applyMiddleware(thunk))
 );
 
 store.subscribe(() => console.log(store.getState()));

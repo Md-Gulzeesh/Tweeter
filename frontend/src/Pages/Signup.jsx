@@ -1,49 +1,63 @@
-import { Box, Button, Flex, FormControl, Heading, Input, useToast, VStack } from '@chakra-ui/react'
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { userSignup } from '../Redux/action'
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  Heading,
+  Input,
+  useToast,
+  VStack,
+} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { userSignup } from "../Redux/action";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import bcrypt from "bcryptjs";
+import { API } from "../api/api";
 
 const Signup = () => {
-    const toast = useToast()
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-     const [formData, setFormData] = useState({
-        user_name:"",
-        avatar_url:"",
-        full_name:"",
-        email:"",
-        password:""
-     });
-    const handleChange = (e)=> {
-        const { name, value } = e.target;
-        setFormData({
-        ...formData,
-        [name]: value,
-        });
-  }
-  const handleSubmit = (e)=>{
+  const toast = useToast();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    user_name: "",
+    avatar_url: "",
+    full_name: "",
+    email: "",
+    password: "",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if(formData.user_name == "" && formData.avatar_url === "" && formData.full_name === "" && formData.email === "" && formData.password === ""){
-        toast({
-          title: 'Please fill all fields',
-          status: 'error',
-          duration: 2000,
-          isClosable: true,
-          position:"top"
-        })
-    }else{
-        newUserSignUp(formData);
+    if (
+      formData.user_name == "" &&
+      formData.avatar_url === "" &&
+      formData.full_name === "" &&
+      formData.email === "" &&
+      formData.password === ""
+    ) {
+      toast({
+        title: "Please fill all fields",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
+    } else {
+      newUserSignUp(formData);
     }
-  }
+  };
 
-   const newUserSignUp = async (user_data) => {
+  const newUserSignUp = async (user_data) => {
     try {
-      let response = await axios.get(
-        "https://mock-8-coding-vite.onrender.com/user"
-      );
+      let response = await axios.get(`${API}/user`);
       let data = response.data;
       let email = data.findIndex((elem) => elem.email === user_data.email);
       let user_name = data.findIndex(
@@ -67,11 +81,8 @@ const Signup = () => {
         });
       } else {
         try {
-          user_data.password = bcrypt.hashSync(user_data.password,10);
-          let res = await axios.post(
-            "https://mock-8-coding-vite.onrender.com/user",
-            user_data
-          );
+          user_data.password = bcrypt.hashSync(user_data.password, 10);
+          let res = await axios.post(`${API}/user`, user_data);
           toast({
             title: "SignUp successfully",
             status: "success",
@@ -81,7 +92,7 @@ const Signup = () => {
           });
           res.data.password = "";
           dispatch(userSignup(res.data));
-          navigate("/")
+          navigate("/");
         } catch (error) {
           toast({
             title: "Something went wrong",
@@ -161,6 +172,6 @@ const Signup = () => {
       </FormControl>
     </Box>
   );
-}
+};
 
-export default Signup
+export default Signup;

@@ -26,6 +26,7 @@ import {
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { API } from "../api/api";
 import { getPosts } from "../Redux/action";
 import SearchGif from "./SearchGif";
 
@@ -40,7 +41,7 @@ const TweetCard = ({ gif, user_name, des, id, location, timeStamp }) => {
   const [mapGifData, setMapGifData] = useState([]);
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://mock-8-coding-vite.onrender.com/posts/${id}`);
+      await axios.delete(`${API}/posts/${id}`);
       toast({
         title: "Tweet Deleted!",
         status: "success",
@@ -69,10 +70,10 @@ const TweetCard = ({ gif, user_name, des, id, location, timeStamp }) => {
   const handleEdit = async (id) => {
     try {
       if (selectedgif !== "" && newtweet !== "") {
-        await axios.patch(
-          `https://mock-8-coding-vite.onrender.com/posts/${id}`,
-          { gif_url: selectedgif, des: newtweet }
-        );
+        await axios.patch(`${API}/posts/${id}`, {
+          gif_url: selectedgif,
+          des: newtweet,
+        });
         toast({
           title: "Tweet edited!",
           status: "success",
@@ -82,12 +83,9 @@ const TweetCard = ({ gif, user_name, des, id, location, timeStamp }) => {
         });
         dispatch(getPosts());
       } else if (selectedgif !== "") {
-        await axios.patch(
-          `https://mock-8-coding-vite.onrender.com/posts/${id}`,
-          {
-            gif_url: selectedgif,
-          }
-        );
+        await axios.patch(`${API}/posts/${id}`, {
+          gif_url: selectedgif,
+        });
         toast({
           title: "Tweet edited!",
           status: "success",
@@ -97,12 +95,9 @@ const TweetCard = ({ gif, user_name, des, id, location, timeStamp }) => {
         });
         dispatch(getPosts());
       } else {
-        await axios.patch(
-          `https://mock-8-coding-vite.onrender.com/posts/${id}`,
-          {
-            des: newtweet,
-          }
-        );
+        await axios.patch(`${API}/posts/${id}`, {
+          des: newtweet,
+        });
         toast({
           title: "Tweet edited!",
           status: "success",

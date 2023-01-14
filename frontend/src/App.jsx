@@ -4,12 +4,13 @@ import Navbar from "./components/Navbar";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { getCityLocation } from "./Redux/action";
+import { IP_API } from "./api/api";
 
 function App() {
   const dispatch = useDispatch();
   const getIp = async () => {
     try {
-      let response = await axios.get("https://api.ipify.org/?format=json");
+      let response = await axios.get(IP_API);
       getLocation(response.data.ip);
     } catch (error) {
       console.log(error);

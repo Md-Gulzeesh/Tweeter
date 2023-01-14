@@ -29,6 +29,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { deleteUser, getUser } from "../Redux/action";
 import bcrypt from "bcryptjs";
+import { API } from "../api/api";
 
 const UserProfile = () => {
   const currentUser = useSelector((store) => store.currentUser);
@@ -44,9 +45,7 @@ const UserProfile = () => {
   });
   const handleDelete = async (user) => {
     try {
-      let response = await axios.delete(
-        `https://mock-8-coding-vite.onrender.com/user/${user.id}`
-      );
+      let response = await axios.delete(`${API}/user/${user.id}`);
       dispatch(deleteUser());
       toast({
         title: "Profile delete successfully",
@@ -75,14 +74,11 @@ const UserProfile = () => {
         updatedProfile.new_avatar_url !== ""
       ) {
         if (updatedProfile.new_password === "") {
-          let response = await axios.patch(
-            `https://mock-8-coding-vite.onrender.com/user/${id}`,
-            {
-              avatar_url: updatedProfile.new_avatar_url,
-              full_name: updatedProfile.full_name,
-              email: updatedProfile.new_email,
-            }
-          );
+          let response = await axios.patch(`${API}/user/${id}`, {
+            avatar_url: updatedProfile.new_avatar_url,
+            full_name: updatedProfile.full_name,
+            email: updatedProfile.new_email,
+          });
           toast({
             title: "Profile edited!",
             status: "success",
@@ -94,15 +90,12 @@ const UserProfile = () => {
           dispatch(getUser(response.data));
         } else {
           let hash = bcrypt.hashSync(updatedProfile.new_password, 10);
-          let response = await axios.patch(
-            `https://mock-8-coding-vite.onrender.com/user/${id}`,
-            {
-              avatar_url: updatedProfile.new_avatar_url,
-              full_name: updatedProfile.full_name,
-              email: updatedProfile.new_email,
-              password: hash,
-            }
-          );
+          let response = await axios.patch(`${API}/user/${id}`, {
+            avatar_url: updatedProfile.new_avatar_url,
+            full_name: updatedProfile.full_name,
+            email: updatedProfile.new_email,
+            password: hash,
+          });
           toast({
             title: "Profile edited!",
             status: "success",

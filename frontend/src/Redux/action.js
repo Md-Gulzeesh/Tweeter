@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API } from "../api/api";
 import {
   DELETE_USER,
   EDIT_USER,
@@ -12,9 +13,7 @@ import {
 
 export const getPosts = () => async (dispatch) => {
   try {
-    let { data } = await axios.get(
-      "https://mock-8-coding-vite.onrender.com/posts"
-    );
+    let { data } = await axios.get(`${API}/posts`);
     dispatch({ type: GET_POSTS, payload: data });
   } catch (error) {
     console.log({ error });

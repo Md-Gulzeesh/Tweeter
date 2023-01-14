@@ -19,6 +19,7 @@ import {
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { API } from "../api/api";
 import { getPosts } from "../Redux/action";
 import SearchGif from "./SearchGif";
 
@@ -40,7 +41,7 @@ const Tweet = () => {
         let dateAndTime = new Date().toLocaleString("en-US", {
           timeZone: "Asia/Kolkata",
         });
-        await axios.post("https://mock-8-coding-vite.onrender.com/posts", {
+        await axios.post(`${API}/posts`, {
           user_name: currentUser.user_name,
           des: tweet,
           gif_url: selectedgif,
