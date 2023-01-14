@@ -61,12 +61,17 @@ const SeacthGif = ({
       position: "top",
     });
   };
+  const handleGifClose = ()=>{
+    setMapGifData([]);
+    setSearchGif("");
+    onClose();
+  }
   return (
     <>
       <Button mt={"10px"} onClick={onOpen} colorScheme={"whatsapp"}>
         Gifs
       </Button>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={handleGifClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Search Gifs</ModalHeader>
