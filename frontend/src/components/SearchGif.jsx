@@ -35,7 +35,17 @@ const SeacthGif = ({
         let response = await axios.get(
           `https://api.giphy.com/v1/gifs/search?api_key=s9ROV9EuwdfMZaLJzVRMq8bWl7b6z4WT&q=${searchgif}&limit=25&offset=0&rating=g&lang=en`
         );
-        setMapGifData(response.data.data);
+        if(response.data.data.length === 0){
+            toast({
+              title: "Gif is not available",
+              status: "error",
+              duration: 1500,
+              isClosable: true,
+              position: "top",
+            });
+        }else{
+          setMapGifData(response.data.data);
+        }
       }
     } catch (error) {
       console.log({ error });
