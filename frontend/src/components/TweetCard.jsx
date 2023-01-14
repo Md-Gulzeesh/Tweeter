@@ -131,7 +131,9 @@ const TweetCard = ({ gif, user_name, des, id, location, timeStamp }) => {
           <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
             <Avatar name={user_name} src={currentUser.avatar_url} />
             <Box>
-              <Heading size="sm">{currentUser.full_name}</Heading>
+              <Heading fontFamily={"Nunito, sans-serif"} size="sm">
+                {currentUser.full_name}
+              </Heading>
               <Text>@{user_name}</Text>
             </Box>
           </Flex>

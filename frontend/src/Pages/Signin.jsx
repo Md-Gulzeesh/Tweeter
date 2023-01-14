@@ -109,7 +109,11 @@ const Signin = () => {
   };
   return (
     <Box mt={"7rem"}>
-      <Heading textAlign={"center"} m={"1rem auto"}>
+      <Heading
+        fontFamily={"Nunito, sans-serif"}
+        textAlign={"center"}
+        m={"1rem auto"}
+      >
         Sign In
       </Heading>
       <FormControl w={{ base: "80%", md: "50%", lg: "30%" }} m={"auto"}>

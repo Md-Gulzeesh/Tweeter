@@ -108,19 +108,59 @@ const Signup = () => {
   };
   return (
     <Box mt={"7rem"}>
-      <Heading textAlign={"center"} m={"1rem auto"}>Sign Up</Heading>
-      <FormControl w={{base:"80%",md:"50%",lg:"30%"}} m={"auto"}>
+      <Heading
+        fontFamily={"Nunito, sans-serif"}
+        textAlign={"center"}
+        m={"1rem auto"}
+      >
+        Sign Up
+      </Heading>
+      <FormControl w={{ base: "80%", md: "50%", lg: "30%" }} m={"auto"}>
         <VStack>
-          <Input name="user_name" value={formData.user_name} onChange={handleChange} type="text" placeholder='Enter Username'/>
-          <Input name="avatar_url" value={formData.avatar_url} onChange={handleChange} type="text" placeholder='Enter Avatar URL'/>
-          <Input name="full_name" value={formData.full_name} onChange={handleChange} type="text" placeholder='Enter full name'/>
-          <Input name="email" value={formData.email} onChange={handleChange} type="email" placeholder='Enter email'/>
-          <Input name="password" value={formData.password} onChange={handleChange} type="password" placeholder='Enter password'/>
+          <Input
+            name="user_name"
+            value={formData.user_name}
+            onChange={handleChange}
+            type="text"
+            placeholder="Enter Username"
+          />
+          <Input
+            name="avatar_url"
+            value={formData.avatar_url}
+            onChange={handleChange}
+            type="text"
+            placeholder="Enter Avatar URL"
+          />
+          <Input
+            name="full_name"
+            value={formData.full_name}
+            onChange={handleChange}
+            type="text"
+            placeholder="Enter full name"
+          />
+          <Input
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            type="email"
+            placeholder="Enter email"
+          />
+          <Input
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            type="password"
+            placeholder="Enter password"
+          />
         </VStack>
-        <Flex mt={'10px'} justify={"flex-end"}><Button colorScheme={"teal"} type='submit' onClick={handleSubmit}>Submit</Button></Flex>
+        <Flex mt={"10px"} justify={"flex-end"}>
+          <Button colorScheme={"teal"} type="submit" onClick={handleSubmit}>
+            Submit
+          </Button>
+        </Flex>
       </FormControl>
     </Box>
-  )
+  );
 }
 
 export default Signup

@@ -137,7 +137,9 @@ const UserProfile = () => {
             borderRadius="50%"
           />
           <Stack mt="6" spacing="3" textAlign={"center"}>
-            <Heading size="md">@{currentUser.user_name}</Heading>
+            <Heading fontFamily={"Nunito, sans-serif"} size="md">
+              @{currentUser.user_name}
+            </Heading>
             <Text as={"h1"}>{currentUser.full_name}</Text>
             <Text as={"h2"} fontWeight={"bold"}>
               {currentUser.email}
